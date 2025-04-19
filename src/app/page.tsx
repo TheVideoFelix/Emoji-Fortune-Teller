@@ -1,3 +1,4 @@
+import ShareButton from "@/components/ShareButton";
 
 export default function Home() {
   return (
@@ -27,9 +28,7 @@ export default function Home() {
           </div>
 
           <div>
-              <button className="bg-purple-700 p-5 px-10 text-xl rounded-full shadow-btn-share">
-                  Share your fortune!
-              </button>
+              <ShareButton prediction={['🔮', '🔮', '🔮']} />
           </div>
       </section>
     </main>
