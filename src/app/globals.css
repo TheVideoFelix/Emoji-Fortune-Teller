@@ -1,5 +1,56 @@
 @import "tailwindcss";
 
+@theme {
+  /* Shadows*/
+  --shadow-crystal: 0 0 50px rgba(255,255,255,0.1);
+  --shadow-btn-share: 0 4px 15px rgba(0,0,0,0.2);
+
+  --inset-shadow-crystal: inset 0 0 20px rgba(255,255,255,0.1);
+  --inset-shadow-crystal-before: inset 0 0 50px rgba(255,255,255,0.1);
+
+  --drop-shadow-emoji-prediction: 0 0 10px rgba(255,255,255,0.5);
+
+  /* Animations */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-crystal-glow: crystal-glow 4s infinite;
+
+  @keyframes crystal-glow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+}
+
 body {
+  box-sizing: content-box;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Sparkles */
+.sparkles::before,
+.sparkles::after {
+  content: '✨';
+  position: absolute;
+  animation: sparkle 2s infinite;
+  opacity: 0;
+}
+
+.sparkles::before {
+  top: 20%;
+  left: 20%;
+}
+
+.sparkles::after {
+  top: 60%;
+  right: 20%;
+}
+
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1.5); }
+  100% { opacity: 0; transform: scale(0); }
 }
