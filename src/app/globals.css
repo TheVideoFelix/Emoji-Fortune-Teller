@@ -2,7 +2,7 @@
 
 @theme {
   /* Shadows*/
-  --shadow-crystal: 0 0 50px rgba(255,255,255,0.1);
+  --shadow-crystal: 0 0 50px rgba(255,255,255,0.13);
   --shadow-btn-share: 0 4px 15px rgba(0,0,0,0.2);
 
   --inset-shadow-crystal: inset 0 0 20px rgba(255,255,255,0.1);
@@ -30,27 +30,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Sparkles */
-.sparkles::before,
-.sparkles::after {
-  content: '✨';
-  position: absolute;
-  animation: sparkle 2s infinite;
-  opacity: 0;
-}
+/* Custom css */
 
-.sparkles::before {
-  top: 20%;
-  left: 20%;
-}
-
-.sparkles::after {
-  top: 60%;
-  right: 20%;
-}
-
-@keyframes sparkle {
-  0% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1.5); }
-  100% { opacity: 0; transform: scale(0); }
+.bg-glass {
+  background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 20%,
+          transparent 80%
+  );
+  box-shadow: var(--shadow-crystal);
 }
