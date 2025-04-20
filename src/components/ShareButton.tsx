@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
 
-interface ShareButtonPros {
+interface ShareButtonProps {
     prediction: string[]
 }
 
-const ShareButton = ({ prediction }: ShareButtonPros) => {
+const ShareButton = ({ prediction }: ShareButtonProps) => {
     const handelShare = async () => {
         const text = `🔮✨ My future ${prediction.join(' ')}.`
         
