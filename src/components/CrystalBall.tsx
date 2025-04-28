@@ -2,21 +2,56 @@
 import {AnimatePresence, motion} from "motion/react";
 import {useState} from "react";
 import SparkleIcon from "@/components/SparkleIcon";
+import ComboParticles from "@/components/ComboParticles";
+
+type FortuneTheme = 'love' | 'work' | 'weekend' | 'mystery';
+
+const EMOJI_LIBRARY: Record<FortuneTheme, string[]> = {
+    love: ['💘', '🌹', '💍', '💌', '🥰', '❤'],
+    work: ['💼', '📈', '🏆', '🤝', '💸', '⚖'],
+    weekend: ['🎉', '🍕', '🎮', '🛌', '🍿', '🚗'],
+    mystery: ['🔮', '✨', '🌌', '🎭', '🕵️', '🎲']
+}
+
+const EMOJI_COMBOS: Record<string, string[]> = {
+    '💌💍💘': ['💍', '❤'],
+}
+
+const getRandomTheme = (): FortuneTheme => {
+    const themes = Object.keys(EMOJI_LIBRARY) as FortuneTheme[];
+    return themes[Math.floor(Math.random() * themes.length)];
+};
 
 const CrystalBall = () => {
-    const [prediction, setPrediction] = useState<string[]>(['🔮', '🔮', '🔮']);
+    const [prediction, setPrediction] = useState<string[]>([]);
     const [isShaking, setIsShaking] = useState(false);
+    const [comboDetected, setComboDetected] = useState(false);
+    const [emojiCombo, setEmojiCombo] = useState<string[]>([]);
 
     const handelShake = () => {
         setIsShaking(true);
 
+        const emojis = Array.from({ length: 3 }, () => {
+            const theme = getRandomTheme();
+            return EMOJI_LIBRARY[theme][Math.floor(Math.random() * EMOJI_LIBRARY[theme].length)]
+        });
+
+        const comboStr = emojis.sort().join('');
+        if (EMOJI_COMBOS[comboStr]) {
+            setComboDetected(true);
+            setEmojiCombo(EMOJI_COMBOS[comboStr]);
+        }
+
+        setPrediction(emojis)
+
+        setTimeout(() => setComboDetected(false), 100);
         setTimeout(() => setIsShaking(false));
     }
 
 
     return (
         <motion.div
-            className="relative w-[400px] h-[400px] m-8 cursor-pointer bg-glass rounded-full overflow-hidden"
+            className="relative w-[400px] h-[400px] m-8 cursor-pointer bg-glass rounded-full overflow-hidden z-10"
             animate={{
                 rotate: isShaking ? [-10, 10, -10, 10, 0] : 0,
                 scale: isShaking ? 1.6 : 1.0,
@@ -60,7 +95,7 @@ const CrystalBall = () => {
                         }}
                         className="absolute text-7xl drop-shadow-emoji-prediction"
                         style={{
-                            left: `${15 + i * 25}%`,
+                            left: `${10 + i * 30}%`,
                             top: `${45}%`
                         }}
                     >
@@ -76,6 +111,7 @@ const CrystalBall = () => {
                 ))}
             </AnimatePresence>
 
+            <ComboParticles comboHit={comboDetected} comboEmojis={emojiCombo} />
         </motion.div>
     );
 };
