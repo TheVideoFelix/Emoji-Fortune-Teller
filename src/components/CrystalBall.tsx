@@ -3,6 +3,7 @@ import {AnimatePresence, motion} from "motion/react";
 import {useState} from "react";
 import SparkleIcon from "@/components/SparkleIcon";
 import ComboParticles from "@/components/ComboParticles";
+import {usePrediction} from "@/context/PredictionContext";
 
 type FortuneTheme = 'love' | 'work' | 'weekend' | 'mystery';
 
@@ -23,7 +24,7 @@ const getRandomTheme = (): FortuneTheme => {
 };
 
 const CrystalBall = () => {
-    const [prediction, setPrediction] = useState<string[]>([]);
+    const { prediction, setPrediction } = usePrediction();
     const [isShaking, setIsShaking] = useState(false);
     const [comboDetected, setComboDetected] = useState(false);
     const [emojiCombo, setEmojiCombo] = useState<string[]>([]);
@@ -42,7 +43,7 @@ const CrystalBall = () => {
             setEmojiCombo(EMOJI_COMBOS[comboStr]);
         }
 
-        setPrediction(emojis)
+        setPrediction(emojis);
 
         setTimeout(() => setComboDetected(false), 100);
         setTimeout(() => setIsShaking(false));

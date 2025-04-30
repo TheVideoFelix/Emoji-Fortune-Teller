@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {PredictionProvider} from "@/context/PredictionContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,9 @@ export default function RootLayout({
       <body
         className="bg-purple-950 bg-linear-to-b from-purple-950 to-fuchsia-950 text-amber-50"
       >
-        {children}
+        <PredictionProvider>
+            {children}
+        </PredictionProvider>
       </body>
     </html>
   );
