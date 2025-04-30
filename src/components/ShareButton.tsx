@@ -1,19 +1,19 @@
 'use client';
 import React from 'react';
+import {usePrediction} from "@/context/PredictionContext";
 
-interface ShareButtonProps {
-    prediction: string[]
-}
+const ShareButton = () => {
+    const { prediction } = usePrediction();
 
-const ShareButton = ({ prediction }: ShareButtonProps) => {
     const handelShare = async () => {
         const text = `🔮✨ My future ${prediction.join(' ')}.`
-        
+        const encodeEmoji = encodeURIComponent(prediction.join(';'));
+
         try {
             await navigator.share({
                 title: 'Emoji fortune!',
                 text,
-                url: window.location.href
+                url: `${window.location.href}?prediction=${encodeEmoji}`
             })
         } catch {
             await navigator.clipboard.writeText(text);
