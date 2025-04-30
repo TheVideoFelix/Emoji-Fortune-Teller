@@ -1,10 +1,13 @@
 
 import FortuneSection from "@/components/FortuneSection";
+import {Suspense} from "react";
 
 export default function Home() {
   return (
     <main className="min-h-screen flex justify-center">
-        <FortuneSection />
+        <Suspense>
+            <FortuneSection />
+        </Suspense>
     </main>
   );
 }
